@@ -3,6 +3,8 @@ const app = express();
 const cors = require("cors");//secuity
 const bodyParser =  require("body-parser");
 const {login} = require("./calculationHelper"); 
+const { request } = require("http");
+const httpStatus = require("http-status");
 const port = 3080;
 
 app.use(bodyParser.json());
@@ -28,8 +30,8 @@ app.set("port", port);
 //     res.status(200).send('sum='+val+'\ndifference='+val2);
 // })
 
-app.post('/', (req,res)=>{
-    const response = login(req.body);
+app.post('/', async(req,res)=>{
+    const response = await login(req.body);
     console.log(response);
     res.status(200).send(response);
 })
