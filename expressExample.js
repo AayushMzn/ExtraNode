@@ -1,35 +1,32 @@
 const express = require('express')
 const app = express();
-const cors = require("cors");
+const cors = require("cors");//secuity
 const bodyParser =  require("body-parser");
+const calculationHelper = require("./calculationHelper"); 
 const port = 3080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors({ origin:"*"}));
 app.set("port", port);
-// app.get('/get-hello', (req,res)=>{
-    
+
+//------------------sum using GET-----------------------
+// app.get('/get-hello', (req,res)=>{  
 //     const a = req.query.a;
 //     const b = req.query.b;
 //     const send = parseInt(a)+parseInt(b);
 //     console.log(send)
-    
 //     res.status(200).send('sum='+send)
 // })
 
+//---------------------calculation using post from different function in different file----------------------
 app.post('/', (req,res)=>{
-    const num1 = req.body.a;
-    const num2 = req.body.b;
-    const val=sum(num1,num2);
-    res.status(200).send('sum='+val)
+    const num1 = parseInt(req.body.a);
+    const num2 = parseInt(req.body.b);
+    const val = calculationHelper.sum(num1,num2);
+    const val2 = calculationHelper.diff(num2,num1);
+    res.status(200).send('sum='+val+'\ndifference='+val2)
 })
-
-function sum(a,b){
-    const s1 = parseInt(a);
-    const s2 = parseInt(b);
-    return(s1+s2);
-}
 
 app.listen(port, () => {
     console.log(`Example of ${port}`)
