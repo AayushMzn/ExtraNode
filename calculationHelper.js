@@ -26,7 +26,7 @@ const httpStatus = require("http-status");
         }
         if(request.user=="abc"){
             console.log("success");
-            const response = "success";
+            const response = request.user;
             return response;
         }
         else{
