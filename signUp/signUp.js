@@ -1,4 +1,8 @@
-function validation(user, email, pass) {
+function validation(loginIn) {
+    const user=loginIn.user;
+    const email=loginIn.email;
+    const pass=loginIn.pass;
+
     let loginInfo = [
         { user: "ABC", email: "abc@gmail.com", pass: "@123" },
     ];
