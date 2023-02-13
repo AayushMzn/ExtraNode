@@ -1,15 +1,18 @@
+const mysql = require('mysql2/promise');
+
 (async (dbHelper) => {
     let dbClient = null;
     let tranConn = null;
     dbHelper.init = async () => {
         try {
             if (!dbClient) {
-                dbClient = await mysql.createConnection({
+                dbClient = await mysql.createPool({
                     host: process.env.MYSQL_DB_HOST,
                     user: process.env.MYSQL_DB_USER,
-                    database: process.env.MYSQL_DB_NAME
+                    database: process.env.MYSQL_DB_NAME,
                 });
             }
+            // console.log(dbClient);
             return dbClient;
         }
         catch (error) {
@@ -17,10 +20,10 @@
         }
     }
 
-    dbHelper.query1 = async (reqs) => {
-        console.log(reqs);
+    dbHelper.query = async (req) => {
+        console.log(req);
         const res = dbClient.query(
-            reqs
+            req
         )
         return res;
     }
